@@ -43,7 +43,7 @@ function Home() {
   const [isVisible, setIsVisible] = useState(false)
 
   const toggleVisibility = ()=>{
-    if(window.scrollY > 500){
+    if(window.scrollY > 400){
       setIsVisible(true)
     } else
     {
@@ -60,6 +60,10 @@ function Home() {
 
   useEffect(()=>{
     window.addEventListener('scroll', toggleVisibility)
+
+    return () => {
+      window.removeEventListener('scroll', toggleVisibility);
+    };
   },[])
   
 
@@ -131,7 +135,7 @@ function Home() {
             {selectedCategory || selectedBrand || selectedPriceRange? 
               filterProduct.map((product,index)=>{
                 return (
-                  <Link to={`${product.id}/${product.name}`} key={index} className='flex flex-col justify-between p-5 bg-[#F5F5F5] border border-slate-300 cursor-pointer shadow-[0_3px_10px_rgb(0,0,0,0.2)] hover:scale-105 transition-all duration-150'>
+                  <Link to={`${product.id}/${product.name}`} onClick={()=>scrollToTop()} key={index} className='flex flex-col justify-between p-5 bg-[#F5F5F5] border border-slate-300 cursor-pointer shadow-[0_3px_10px_rgb(0,0,0,0.2)] hover:scale-105 transition-all duration-150'>
                     <div className='flex flex-col justify-between'>
                     <img className='object-cover w-full' src={product.image} alt={product.name} />
                     <div className='flex flex-col items-center justify-center gap-3'>
@@ -140,7 +144,7 @@ function Home() {
                         <p className='font-mono text-sm'>{product.category}</p>
                       </div>
                       <p className='font-mono text-lg'>₹ {product.price}</p>
-                      <button className='p-2 hover:bg-[#2560e1] transition-all duration-150 bg-[#0a1a3d] text-white rounded-md'>Add to cart</button>
+                      <button className='p-2 hover:bg-[#2560e1] transition-all duration-150 bg-[#0a1a3d] text-white rounded-md'>View Details</button>
                     </div>
                   </div>
                   </Link>
@@ -148,7 +152,7 @@ function Home() {
               }) : 
               products.map((product,index)=>{
                 return (
-                  <Link to={`${product.id}/${product.name}`} className='flex flex-col justify-between p-5 bg-[#F5F5F5] border border-slate-300 cursor-pointer shadow-[0_3px_10px_rgb(0,0,0,0.2)] hover:scale-105 transition-all duration-150'  key={index}>
+                  <Link to={`${product.id}/${product.name}`} onClick={()=>scrollToTop()} className='flex flex-col justify-between p-5 bg-[#F5F5F5] border border-slate-300 cursor-pointer shadow-[0_3px_10px_rgb(0,0,0,0.2)] hover:scale-105 transition-all duration-150'  key={index}>
                     <div className='flex flex-col justify-between'>
                     <img className='object-cover w-full' src={product.image} alt={product.name} />
                     <div className='flex flex-col items-center justify-center gap-3'>
@@ -157,7 +161,7 @@ function Home() {
                         <p className='font-mono text-sm'>{product.category}</p>
                       </div>
                       <p className='font-mono text-lg'>₹ {product.price}</p>
-                      <button className='p-2 hover:bg-[#2560e1] transition-all duration-150 bg-[#0a1a3d] text-white rounded-md'>Add to cart</button>
+                      <button className='p-2 hover:bg-[#2560e1] transition-all duration-150 bg-[#0a1a3d] text-white rounded-md'>View Details</button>
                     </div>
                   </div>
                   </Link>
