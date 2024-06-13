@@ -69,7 +69,7 @@ function Home() {
 
   return (
     <div>
-      <div className='mt-14'>
+      <div className='mt-16'>
         <ImageSlider images={productImages} autoSlideInterval={5000} />
       </div>
       {/* Features Section */}
@@ -170,7 +170,7 @@ function Home() {
             }
           </div> 
         </div>
-        <div className='fixed h-10 text-4xl transition-all duration-200 bg-blue-600 cursor-pointer hover:scale-105 right-2 bottom-4 '>
+        <div className='fixed h-10 text-4xl transition-all duration-200 bg-blue-500 cursor-pointer hover:scale-105 right-2 bottom-4 '>
           <button onClick={scrollToTop} className={`${isVisible ? 'flex': 'hidden'} transition-all duration-200`}><MdKeyboardDoubleArrowUp /></button>
         </div>
       </div>

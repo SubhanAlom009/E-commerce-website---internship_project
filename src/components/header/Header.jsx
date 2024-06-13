@@ -1,48 +1,117 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { CiSearch } from "react-icons/ci";
 import { FaShoppingCart } from "react-icons/fa";
 import { products } from '../../constants/Constants';
 import { CartContext } from '../../Context/CartContext/CartContext';
+import { motion } from "framer-motion";
 
 function Header() {
     const { cart } = useContext(CartContext);
     const [search, setSearch] = useState("");
     const navigate = useNavigate();
     const { productId } = useParams();
+    const [scroll, setScroll] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
+    const [isProductVisible, setIsProductVisible] = useState(false);
+    const [isCategoryVisible, setIsCategoryVisible] = useState(false);
 
-    const product = products.find((pd) => {
-        return pd.id === parseInt(productId) || pd.name === productId;
-    });
+    const searchRef = useRef(null);
+
+    const product = products.find((pd) => pd.id === parseInt(productId) || pd.name === productId);
+
+    const trimmedSearch = search.trim().toLowerCase();
+    const matchedProduct = products.find((pd) => pd.name.toLowerCase() === trimmedSearch || pd.category.toLowerCase() === trimmedSearch);
+
+    const searchResult = (matchedProduct ?
+        <ul 
+        className={`${isProductVisible || isCategoryVisible ? "block" : "hidden"} space-y-2 list-none`}>
+            <Link to={`/search/${encodeURIComponent(matchedProduct?.name)}`}>
+                <span>Product:</span>
+                <li className='bg-[#36a9cf] my-2 border border-slate-800 px-4 py-2 rounded-lg w-[280px]'>
+                    {matchedProduct?.name}
+                </li>
+            </Link>
+            <Link to={`/search/${encodeURIComponent(matchedProduct?.name)}`}>
+                <span>Category:</span>
+                <li className='bg-[#36a9cf] border border-slate-800 px-4 py-2 rounded-lg w-[280px]'>{matchedProduct?.category}</li>
+            </Link>
+        </ul> : search.length > 3 ? <div className='px-4 text-center'>No product found. <br /> Name should be exact. <br /> (try product 1)</div> : <div>Type a product name</div>
+    )
 
     const handleSearch = () => {
-        const trimmedSearch = search.trim().toLowerCase();
-
         if (trimmedSearch === "") {
             alert("Please enter a product name");
             return;
         }
 
-        const matchedProduct = products.find((pd) => pd.name.toLowerCase() === trimmedSearch || pd.category.toLowerCase() === trimmedSearch);
-
         if (matchedProduct) {
             setSearch("");
             navigate(`/search/${encodeURIComponent(matchedProduct.name)}`);
         } else {
-            console.log();("Product not found");
+            console.log("Product not found");
             navigate(`/search/${trimmedSearch}`);
         }
     };
 
+    useEffect(() => {
+        const handleScroll = () => {
+            setScroll(window.scrollY > 30);
+        }
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        }
+    }, []);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (!searchRef.current.contains(event.target)) {
+                setIsVisible(false);
+            }
+        }
+
+        if (isVisible) {
+            window.addEventListener('click', handleClickOutside);
+        } else {
+            window.removeEventListener('click', handleClickOutside);
+        }
+
+        return () => {
+            window.removeEventListener('click', handleClickOutside);
+        }
+    }, [isVisible]);
+
+    useEffect(() => {
+        if (matchedProduct) {
+            setIsProductVisible(true);
+            setIsCategoryVisible(true);
+        } else {
+            setIsProductVisible(false);
+            setIsCategoryVisible(false);
+        }
+    }, [matchedProduct]);
+
     return (
         <div>
-            <div className='flex justify-between fixed top-0 left-0 right-0 z-10 items-center bg-[#1D232A] text-[#F5F5F5] h-16 px-12'>
+            <div className={`${scroll ? "shadow-[rgba(50,50,93,0.45)_0px_12px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]" : ""} fixed top-0 left-0 right-0 z-10 flex justify-between items-center h-16 px-12 transition-all duration-100 text-[#FFFFFF] bg-slate-700`}>
                 <div>
-                    <Link className='font-mono text-2xl font-bold px-2 py-1 rounded-md transition-all duration-200 hover:bg-[#3e444b]' to="/">TechTrove</Link>
+                    <Link className='font-mono text-2xl font-bold px-2 py-1 rounded-md transition-all duration-200 hover:bg-[#36a9cf]' to="/">TechTrove</Link>
                 </div>
-                <div className='relative flex items-center justify-between'>
+                <div 
+                onFocus={() => setIsVisible(true)} 
+                className='relative flex items-center justify-between'>
+                    <motion.div   
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : -20 }}
+                    transition={{ type: "spring", stiffness: 260, damping: 20, duration: 1 }} 
+                    className={`absolute ${isVisible ? "block" : "hidden"} py-4 text-lg font-medium flex gap-5 flex-col items-center left-70 top-16 bg-[#4daecf] rounded-md text-[#F5F5F5] w-[288px] h-[300px] overflow-x-hidden overflow-y-auto list-none`}>
+                        {searchResult}
+                    </motion.div>
                     <input
-                        className='bg-[#3e444b] rounded-s-md px-4 py-2 text-[#F5F5F5] outline-none'
+                        ref={searchRef}
+                        className='w-full rounded-s-md px-4 py-2 text-[#F5F5F5] outline-none placeholder:text-[#F5F5F5] bg-[#4daecf]'
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         type="text"
@@ -50,30 +119,30 @@ function Header() {
                     />
                     <button
                         onClick={handleSearch}
-                        className='hover:bg-[#7ab2f3] rounded-e-md px-4 py-2 transition-all duration-200 bg-[#6292c8] cursor-pointer'
+                        className='hover:bg-[#44c1ff] rounded-e-md px-4 py-2 transition-all duration-200 bg-[#36a9cf] cursor-pointer'
                     >
                         <CiSearch className='text-[#F5F5F5] text-2xl' />
                     </button>
                 </div>
                 <ul className='flex items-center gap-4 list-none'>
-                    <li className='rounded-md transition-all duration-200 px-2 py-1 hover:bg-[#3e444b]'>
+                    <li className='rounded-md transition-all duration-200 px-2 py-1 hover:bg-[#36a9cf]'>
                         <Link to='/'>Home</Link>
                     </li>
-                    <li className='rounded-md transition-all duration-200 px-2 py-1 hover:bg-[#3e444b]'>
+                    <li className='rounded-md transition-all duration-200 px-2 py-1 hover:bg-[#36a9cf]'>
                         <Link to="/products">Products</Link>
                     </li>
-                    <li className='rounded-md transition-all duration-200 px-2 py-1 hover:bg-[#3e444b]'>
+                    <li className='rounded-md transition-all duration-200 px-2 py-1 hover:bg-[#36a9cf]'>
                         <Link to='/about'>About</Link>
                     </li>
-                    <li className='rounded-md transition-all duration-200 px-2 py-1 hover:bg-[#3e444b]'>
+                    <li className='rounded-md transition-all duration-200 px-2 py-1 hover:bg-[#36a9cf]'>
                         <Link to='/contact'>Contact</Link>
                     </li>
                     <li className='flex items-center cursor-pointer'>
                         <Link to={`/cart/${productId}`} className='text-[#F5F5F5] cursor-pointer text-2xl'><FaShoppingCart /></Link>
-                        <label className='text-[#7ab2f3] ml-1'>{cart.length}</label>
+                        <label className='text-[#30cbff] ml-1'>{cart.length}</label>
                     </li>
-                    <button className='bg-[#F5F5F5] rounded-md hover:bg-[#e1e1e1] transition-all duration-200 text-[#1D232A] px-4 py-1'>
-                        <Link to='/'>Login</Link>
+                    <button className='bg-[#36a9cf] rounded-md hover:bg-[#44c1ff] transition-all duration-200 px-6 py-2'>
+                        <Link to='/login' className='text-[#F5F5F5] font-semibold'>Login</Link>
                     </button>
                 </ul>
             </div>

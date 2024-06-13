@@ -15,6 +15,7 @@ import OrderConfirmation from './components/OrderConfirmation/OrderConfirmation.
 import { AddressProvider } from './Context/AddressContext/AddressContext.jsx'
 import Search from './components/Search/Search.jsx'
 import Login from './components/Login/Login.jsx'
+import SignUp from './components/SignUp/SignUp.jsx'
 
 
 const router = createBrowserRouter(
@@ -31,6 +32,7 @@ const router = createBrowserRouter(
       <Route path='/order-confirmation' element={<OrderConfirmation />} />
       <Route path='/search/:productName' element={<Search />} />
       <Route path='/login' element={<Login />} />
+      <Route path='/signup' element={<SignUp />} />
     </Route>
   )
 )
