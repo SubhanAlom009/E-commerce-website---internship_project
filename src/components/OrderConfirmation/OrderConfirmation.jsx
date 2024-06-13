@@ -38,7 +38,7 @@ function OrderConfirmation() {
                             <div className='flex items-center gap-5'>
                                 <div className='flex gap-5'>
                                     <h1 className='font-mono text-xl'>{pd.name}</h1>
-                                    <h1>Quantity: {quantity}</h1>
+                                    <h1>Quantity: {pd.quantity}</h1>
                                     <h1>Price: ₹ {pd.price}</h1>
                                 </div>
                             </div>
