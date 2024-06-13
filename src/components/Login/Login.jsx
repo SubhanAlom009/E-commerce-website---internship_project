@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 function Login() {
   return (
-    <div className='w-full h-screen pt-24 pb-12'>
+    <div className='flex items-center justify-center w-full h-screen pt-24 pb-12'>
         <motion.div 
         animate={{ scale: 1 }}
         initial={{ scale: 0 }}
