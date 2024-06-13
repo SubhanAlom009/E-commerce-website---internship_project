@@ -13,6 +13,8 @@ import { CartProvider } from './Context/CartContext/CartContext.jsx';
 import Checkout from './components/Checkout/Checkout.jsx'
 import OrderConfirmation from './components/OrderConfirmation/OrderConfirmation.jsx'
 import { AddressProvider } from './Context/AddressContext/AddressContext.jsx'
+import Search from './components/Search/Search.jsx'
+import Login from './components/Login/Login.jsx'
 
 
 const router = createBrowserRouter(
@@ -27,6 +29,8 @@ const router = createBrowserRouter(
       <Route path='/cart/:productId' element={<Cart />} />
       <Route path='/checkout' element={<Checkout />} />
       <Route path='/order-confirmation' element={<OrderConfirmation />} />
+      <Route path='/search/:productName' element={<Search />} />
+      <Route path='/login' element={<Login />} />
     </Route>
   )
 )

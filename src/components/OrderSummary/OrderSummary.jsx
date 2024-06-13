@@ -58,9 +58,9 @@ function OrderSummary() {
                 })
             }
             <h1 className='font-sans text-xl font-medium'>Total items: {cart.length}</h1>
-            <h1 className='text-xl font-medium'>Subtotal: {cart.reduce((total, pd)=>{return total + pd.price * quantity},0)}</h1>
+            <h1 className='text-xl font-medium'>Subtotal: {cart.reduce((total, pd)=>{return total + pd.price * pd.quantity},0)}</h1>
             <h1 className='text-xl font-medium'>discount: ₹ 0</h1>
-            <h1 className='text-xl font-medium'>Total price: {cart.reduce((total, pd)=>{return total + pd.price * quantity},0)}</h1>
+            <h1 className='text-xl font-medium'>Total price: {cart.reduce((total, pd)=>{return total + pd.price * pd.quantity},0)}</h1>
             <Link><button onClick={handleAddress} className='w-full px-4 py-2 mt-12 text-xl font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700'>Pay Now</button></Link>
         </div>
         </div>

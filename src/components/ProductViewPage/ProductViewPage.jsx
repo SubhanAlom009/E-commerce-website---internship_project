@@ -1,6 +1,6 @@
 import React,{useState, useEffect, useContext} from 'react'
 import { products } from '../../constants/Constants'
-import { useParams } from 'react-router-dom'
+import { useParams,useNavigate } from 'react-router-dom'
 import Zoom from 'react-medium-image-zoom'
 import { MdKeyboardDoubleArrowUp } from "react-icons/md";
 import 'react-medium-image-zoom/dist/styles.css';
@@ -17,7 +17,16 @@ function ProductViewPage() {
 
     const [isVisible, setIsVisible] = useState(false)
 
-    const {handleCart, quantity, updateQuantity, setQuantity} = useContext(CartContext)
+    const {cart,setCart, handleCart, quantity, updateQuantity, setQuantity} = useContext(CartContext)
+
+
+    
+  const navigate = useNavigate();
+
+  const handleCartToBuy = (product) => {
+    handleCart(product);
+    navigate("/cart");
+  };
 
   const toggleVisibility = ()=>{
     if(window.scrollY > 400){
@@ -44,9 +53,10 @@ function ProductViewPage() {
   },[])
 
   const handleQuantityChange = (e) => {
-    const value = e.target.value
-    if (value >= 1) {
+    const value = parseInt(e.target.value);
+    if (!isNaN(value) && value >= 1) {
       setQuantity(value);
+      // Update quantity in cart if already added
       updateQuantity(product.id, value);
     }
   };
@@ -66,7 +76,7 @@ function ProductViewPage() {
                 <p className='text-2xl'>Reviews: <span>{product.reviews}</span></p>
                 <p className='text-2xl'>Quantity: <input className='w-12 p-2 border-2 rounded-lg ' type="number" min={1} max={10} value={quantity} onChange={handleQuantityChange}/></p>
                 <button onClick={()=>handleCart(product)} className='bg-[#0a1a3d] text-[#F5F5F5] p-3 rounded-lg hover:bg-[#2560e1] transition-all duration-150'>Add to Cart</button>
-                <Link to={`/cart/${product.id}`} className='bg-[#0a1a3d] text-[#F5F5F5] p-3 rounded-lg hover:bg-[#2560e1] transition-all duration-150 text-center'><button className='w-full' >Buy Now</button></Link>
+                <Link to={`/cart/${product.id}`} className='bg-[#0a1a3d] text-[#F5F5F5] p-3 rounded-lg hover:bg-[#2560e1] transition-all duration-150 text-center'><button onClick={()=>handleCartToBuy(product)} className='w-full' >Buy Now</button></Link>
             </div>
         </div>
         <div className='w-full h-[1px] my-12 bg-slate-500'></div>

@@ -5,7 +5,7 @@ import { CartContext } from "../../Context/CartContext/CartContext";
 import { products } from "../../constants/Constants";
 
 function Cart() {
-  const { cart, handleRemove, updateQuantity } = useContext(CartContext);
+  const { cart, handleRemove,quantity, updateQuantity } = useContext(CartContext);
 
   if (cart.length === 0) {
     return <div className="flex justify-center h-screen mt-24 mb-16">Cart is Empty</div>;
