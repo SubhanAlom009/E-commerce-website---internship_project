@@ -4,7 +4,8 @@ import { CiSearch } from "react-icons/ci";
 import { FaShoppingCart } from "react-icons/fa";
 import { products } from '../../constants/Constants';
 import { CartContext } from '../../Context/CartContext/CartContext';
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 function Header() {
     const { cart } = useContext(CartContext);
@@ -15,6 +16,7 @@ function Header() {
     const [isVisible, setIsVisible] = useState(false);
     const [isProductVisible, setIsProductVisible] = useState(false);
     const [isCategoryVisible, setIsCategoryVisible] = useState(false);
+    const [isMenuVisible, setIsMenuVisible] = useState(false);
 
     const searchRef = useRef(null);
 
@@ -93,11 +95,39 @@ function Header() {
         }
     }, [matchedProduct]);
 
+    const navbarItems = ( 
+                  <ul className='flex flex-col items-center justify-center gap-5'>
+                    <li className='rounded-md transition-all duration-200 hover:bg-[#36a9cf] py-1 px-3'>
+                        <Link to='/'>Home</Link>
+                    </li>
+                    <li className='rounded-md transition-all duration-200 hover:bg-[#36a9cf] py-1 px-3'>
+                        <Link to="/products">Products</Link>
+                    </li>
+                    <li className='rounded-md transition-all duration-200 hover:bg-[#36a9cf] py-1 px-3'>
+                        <Link to='/about'>About</Link>
+                    </li>
+                    <li className='rounded-md transition-all duration-200 hover:bg-[#36a9cf] py-1 px-3'>
+                        <Link to='/contact'>Contact</Link>
+                    </li>
+                    <li className='flex items-center cursor-pointer'>
+                        <Link to={`/cart/${productId}`} className='text-[#F5F5F5] cursor-pointer text-2xl'><FaShoppingCart /></Link>
+                        <label className='text-[#30cbff] ml-1'>{cart.length}</label>
+                    </li>
+                    <button className='bg-[#36a9cf] rounded-md hover:bg-[#44c1ff] transition-all duration-200 px-6 py-2'>
+                        <Link to='/login' className='text-[#F5F5F5] font-semibold'>Login</Link>
+                    </button>
+                  </ul>
+                ); 
+                
+              const handleMenuVisibility = () => {
+                  setIsMenuVisible((prev) => !prev);
+              }
+
     return (
         <div>
-            <div className={`${scroll ? "shadow-[rgba(50,50,93,0.45)_0px_12px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]" : ""} fixed top-0 left-0 right-0 z-10 flex justify-between items-center h-16 px-12 transition-all duration-100 text-[#FFFFFF] bg-slate-700`}>
+            <div className={`${scroll ? "shadow-[rgba(50,50,93,0.45)_0px_12px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]" : ""} fixed top-0 left-0 right-0 z-10 flex justify-between items-center h-16  px-4 sm:px-12 transition-all duration-100 text-[#FFFFFF] bg-slate-700`}>
                 <div>
-                    <Link className='font-mono text-2xl font-bold px-2 py-1 rounded-md transition-all duration-200 hover:bg-[#36a9cf]' to="/">TechTrove</Link>
+                    <Link className='font-mono text-2xl font-bold px-2 py-1 rounded-md transition-all mr-4 duration-200 hover:bg-[#36a9cf]' to="/">TechTrove</Link>
                 </div>
                 <div 
                 onFocus={() => setIsVisible(true)} 
@@ -106,7 +136,7 @@ function Header() {
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : -20 }}
                     transition={{ type: "spring", stiffness: 260, damping: 20, duration: 1 }} 
-                    className={`absolute ${isVisible ? "block" : "hidden"} py-4 text-lg font-medium flex gap-5 flex-col items-center left-70 top-16 bg-[#4daecf] rounded-md text-[#F5F5F5] w-[288px] h-[300px] overflow-x-hidden overflow-y-auto list-none`}>
+                    className={`absolute ${isVisible ? "block" : "hidden"} py-4 text-lg font-medium flex gap-5 flex-col items-center sm:left-70 right-0 top-16 bg-[#4daecf] rounded-md text-[#F5F5F5] w-[288px] h-[300px] overflow-x-hidden overflow-y-auto list-none`}>
                         {searchResult}
                     </motion.div>
                     <input
@@ -124,7 +154,22 @@ function Header() {
                         <CiSearch className='text-[#F5F5F5] text-2xl' />
                     </button>
                 </div>
-                <ul className='flex items-center gap-4 list-none'>
+                <div onClick={handleMenuVisibility} className='flex ml-4 text-2xl cursor-pointer sm:hidden'>
+                    <GiHamburgerMenu />
+                </div>
+                <AnimatePresence>
+                    {isMenuVisible && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ type: "spring", stiffness: 260, damping: 20, duration: 1 }} 
+                            className='absolute z-20 flex flex-col items-center justify-center w-2/3 h-auto py-4 rounded-md top-20 right-10 bg-slate-700 sm:hidden'>
+                            {navbarItems}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+                <ul className='items-center hidden gap-4 list-none sm:flex'>
                     <li className='rounded-md transition-all duration-200 px-2 py-1 hover:bg-[#36a9cf]'>
                         <Link to='/'>Home</Link>
                     </li>

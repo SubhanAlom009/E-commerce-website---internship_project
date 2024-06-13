@@ -65,8 +65,8 @@ function Products() {
 
 
   return (
-    <div className='flex justify-between gap-10 mx-8 mt-24 mb-12'>
-      <div className='flex flex-col gap-4 p-5 border-r border-slate-400 min-w-[200px]'>
+    <div className='flex flex-col justify-between gap-10 mx-8 mt-24 mb-12 sm:flex-row'>
+      <div className='flex sm:flex-col gap-4 p-5 border-b sm:border-r border-slate-400 min-w-[200px]'>
         <div className='space-y-3'>
           <h1 className='text-lg font-semibold'>Categories</h1>
           <ul>
@@ -100,7 +100,7 @@ function Products() {
       </div>
       <div className='flex flex-col'>
         <h1 className='text-3xl font-semibold'>All Products</h1>
-        <div className='grid grid-cols-3 gap-4 mt-4'>
+        <div className='grid grid-cols-1 gap-4 mt-4 sm:grid-cols-3'>
           {selectedCategory || selectedBrand || selectedPriceRange? 
             filterProduct.map((product,index)=>{
               return (

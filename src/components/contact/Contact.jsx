@@ -12,8 +12,8 @@ function Contact() {
 
   return (
     <div className='flex items-center justify-center max-w-screen md:px-20'>
-      <div className='w-2/3 px-4 mt-24 mb-16 md:px-20'>
-          <div className=" px-12 py-8 rounded-lg bg-[#e1e1e1] space-y-8 w-full ">
+      <div className='w-full px-4 mt-24 mb-12 sm:mb-16 sm:w-2/3 md:px-20'>
+          <div className="px-6 sm:px-12 py-4 sm:py-8 rounded-lg bg-[#e1e1e1] space-y-8 w-full ">
               <div className='flex items-center justify-center'>
                   <h3 className="text-2xl font-bold md:text-5xl">Contact Us</h3>
               </div>

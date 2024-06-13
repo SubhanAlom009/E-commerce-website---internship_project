@@ -6,7 +6,7 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 function Footer() {
   return (
     <footer className='bg-[#0a1a3d] text-[#F5F5F5]'>
-      <div className='flex gap-5 px-20 py-10'>
+      <div className='flex flex-col gap-5 px-20 py-10 md:flex-row'>
         <div className='flex flex-col gap-5'>
           <h1 className='text-2xl font-bold text-white'>TechTrove</h1>
           <p className='w-[80%]'>At TechTrove, we believe in staying ahead of the curve by constantly updating our inventory with the latest advancements in technology. Our team of experts carefully selects each product to ensure it meets our high standards of quality and innovation. We are committed to providing our customers with the best possible shopping experience.</p>

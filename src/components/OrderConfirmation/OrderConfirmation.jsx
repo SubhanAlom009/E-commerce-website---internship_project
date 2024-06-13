@@ -19,7 +19,7 @@ function OrderConfirmation() {
     initial={{ scale: 0 }}
     transition={{ type: "spring", stiffness: 260, damping: 20, duration: 1 }}
     className='flex justify-center w-full h-full mt-24 mb-16'>
-        <div className='flex flex-col px-12 py-8 w-1/2 mx-16 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)]'>
+        <div className='flex flex-col px-6 py-4 sm:px-12 sm:py-8 sm:w-1/2 mx-4 sm:mx-16 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)]'>
             <div>
                 <label className='flex items-center mb-4'>
                     <div className='p-4 bg-green-500 rounded-full'>

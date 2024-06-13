@@ -10,7 +10,7 @@ function SignUp() {
                 animate={{ scale: 1 }}
                 initial={{ scale: 0 }}
                 transition={{ type: "spring", stiffness: 260, damping: 20, duration: 1 }} 
-                className=' w-1/2 h-full flex flex-col items-center px-8 py-4 m-auto rounded-lg shadow-xl max-w-[550px] bg-gradient-to-br from-cyan-200 to-sky-500'>
+                className=' sm:w-1/2 mx-4 sm:mx-0 h-full flex flex-col items-center px-8 py-4 m-auto rounded-lg shadow-xl max-w-[550px] bg-gradient-to-br from-cyan-200 to-sky-500'>
                 <div className='flex flex-col items-center'>
                     <h1 className='w-full mt-4 font-sans text-3xl font-medium text-center'>Register now as a  <i className='font-bold'>Tech Otaku!</i></h1>
                     <h1 className='w-full mt-4 font-mono text-3xl text-center'>Sign up</h1>

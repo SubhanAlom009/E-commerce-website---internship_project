@@ -61,28 +61,34 @@ function ProductViewPage() {
     }
   };
 
+
+  const handleScrollAndCart = (product)=>{
+    handleCartToBuy(product)
+    scrollToTop()
+  }
+
   return (
     <div className='flex flex-col mx-8 mt-24 mb-12'>
-        <div className='flex justify-center gap-24'>
-            <div className='w-1/2'>
+        <div className='flex flex-col justify-center gap-5 sm:gap-24 sm:flex-row'>
+            <div className='w-full sm:w-1/2'>
                 <Zoom>
                     <img className='rounded-xl' src={product.image} />
                 </Zoom>
             </div>
-            <div className='flex flex-col justify-center w-1/2 space-y-4'>
+            <div className='flex flex-col justify-center space-y-4 sm:w-1/2'>
                 <h1 className='font-mono text-3xl font-bold'>{product.name}</h1>
-                <p className='w-2/3 text-sm'>{product.description}</p>
+                <p className='text-sm sm:w-2/3'>{product.description}</p>
                 <p className='text-2xl'>Price: <span>₹ {product.price}</span></p>
                 <p className='text-2xl'>Reviews: <span>{product.reviews}</span></p>
                 <p className='text-2xl'>Quantity: <input className='w-12 p-2 border-2 rounded-lg ' type="number" min={1} max={10} value={quantity} onChange={handleQuantityChange}/></p>
                 <button onClick={()=>handleCart(product)} className='bg-[#0a1a3d] text-[#F5F5F5] p-3 rounded-lg hover:bg-[#2560e1] transition-all duration-150'>Add to Cart</button>
-                <Link to={`/cart/${product.id}`} className='bg-[#0a1a3d] text-[#F5F5F5] p-3 rounded-lg hover:bg-[#2560e1] transition-all duration-150 text-center'><button onClick={()=>handleCartToBuy(product)} className='w-full' >Buy Now</button></Link>
+                <Link to={`/cart/${product.id}`} className='bg-[#0a1a3d] text-[#F5F5F5] p-3 rounded-lg hover:bg-[#2560e1] transition-all duration-150 text-center'><button onClick={()=>handleScrollAndCart(product)} className='w-full' >Buy Now</button></Link>
             </div>
         </div>
         <div className='w-full h-[1px] my-12 bg-slate-500'></div>
         <div>
             <h1 className='mb-8 text-3xl font-bold underline underline-offset-2'>Similar Products</h1>
-            <div className='grid grid-cols-4 gap-4 '>
+            <div className='grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-4 '>
                 {
                     filterSimilarProduct.map((product,index)=>{
                         return (
@@ -105,7 +111,7 @@ function ProductViewPage() {
         </div>
         <div>
             <h1 className='my-8 mb-8 text-3xl font-bold underline underline-offset-2'>More Products</h1>
-            <div className='grid grid-cols-4 gap-4'>
+            <div className='grid grid-cols-1 gap-4 md:grid-cols-3 sm:grid-cols-4'>
                 {
                     moreProducts.map((product,index)=>{
                         return (

@@ -3,7 +3,6 @@ import Payment from '../Payment/Payment'
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import Address from '../Address/Address';
 import OrderSummary from '../OrderSummary/OrderSummary';
-import { AddressContext } from '../../Context/AddressContext/AddressContext';
 
 
 function Checkout() {
@@ -17,7 +16,7 @@ function Checkout() {
             </div>
             <div className='w-full border border-grey-300'></div>
         </div>
-        <div className='flex mx-12 '>
+        <div className='flex flex-col sm:mx-12 sm:flex-row '>
             <div className='flex flex-col w-full'>
                 <div>
                     <Payment/>
@@ -26,7 +25,7 @@ function Checkout() {
                     <Address/>
                 </div>
             </div>
-            <div className='px-4 py-2 min-h-1/2 bg-[#F6F7FB] mt-8 w-1/3 rounded-lg'>
+            <div className='px-4 sm:py-2 sm:min-h-1/2 bg-[#F6F7FB] mt-8 sm:w-1/3 rounded-lg'>
                 <OrderSummary/>
             </div>
         </div>

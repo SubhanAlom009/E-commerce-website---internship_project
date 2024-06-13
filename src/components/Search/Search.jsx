@@ -9,7 +9,7 @@ function Search() {
     const resultProducts = products.filter((pd) => pd.name.toLowerCase().includes(productName.toLowerCase()) || pd.category.toLowerCase().includes(productName.toLowerCase()));
 
     return (
-        <div className='mt-24 mb-16'>
+        <div className='mx-4 mt-24 mb-16'>
             <div>
                 {resultProducts ? (
                     <div className='flex justify-center mt-24 mb-16'>
@@ -25,7 +25,7 @@ function Search() {
             <div className='flex flex-col items-center justify-center gap-8'>
                 {
                     resultProducts.map((pd, index) => (
-                        <div key={index} className='flex items-center justify-center w-1/3 gap-10 px-4 py-4 bg-blue-500 rounded-xl'>
+                        <div key={index} className='flex items-center justify-center gap-10 px-4 py-4 bg-blue-500 sm:w-1/3 rounded-xl'>
                             <div >
                                 <Link to={`../${pd.id}/${pd.name}`}><img className='w-[300px] rounded-xl' src={pd.image} alt={pd.name} /></Link>
                             </div>
