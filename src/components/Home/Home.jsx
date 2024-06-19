@@ -107,14 +107,14 @@ function Home() {
         <div className='flex sm:flex-col gap-4 p-5 border-b sm:border-r border-slate-400 min-w-[200px]'>
           <div className='space-y-3'>
             <h1 className='text-lg font-semibold'>Categories</h1>
-            <ul>
+            <motion.ul>
               {/* Add tick boxes..... better looking!! */}
               <Link onClick={()=> toggleCategory('Computing Devices')} className={`${selectedCategory === 'Computing Devices'? 'underline': ''} text-blue-400 underline-offset-4 cursor-pointer hover:underline`}><li>Computing Devices</li></Link>
               <Link onClick={()=> toggleCategory('Mobile Devices')} className={`${selectedCategory === 'Mobile Devices'? 'underline': ''} text-blue-400 underline-offset-4 cursor-pointer hover:underline`}><li>Mobile Devices</li></Link>
               <Link onClick={()=> toggleCategory('Wearable Technology')} className={`${selectedCategory === 'Wearable Technology'? 'underline': ''} text-blue-400 underline-offset-4 cursor-pointer hover:underline`}><li>Wearable Technology</li></Link>
               <Link onClick={()=> toggleCategory('Audio & Music Devices')} className={`${selectedCategory === 'Audio & Music Devices'? 'underline': ''} text-blue-400 underline-offset-4 cursor-pointer hover:underline`}><li>Audio & Music Devices</li></Link>
               <Link onClick={()=> toggleCategory('Smart Home Devices')} className={`${selectedCategory === 'Smart Home Devices'? 'underline': ''} text-blue-400 underline-offset-4 cursor-pointer hover:underline`}><li>Smart Home Devices</li></Link>
-            </ul>
+            </motion.ul>
           </div>
           <div className='space-y-3'>
             <h1 className='text-lg font-semibold'>Filter by Brand</h1>
