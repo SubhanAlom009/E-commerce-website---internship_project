@@ -4,6 +4,7 @@ import ImageSlider from '../../ImageSlider/ImageSlider';
 import { Link } from 'react-router-dom';
 import { FaShippingFast, FaHeadset, FaUndo } from 'react-icons/fa';
 import { MdKeyboardDoubleArrowUp } from "react-icons/md";
+import { motion } from 'framer-motion';
 
 
 function Home() {
@@ -57,6 +58,7 @@ function Home() {
       behavior: 'smooth'
     })
   }
+  
 
   useEffect(()=>{
     window.addEventListener('scroll', toggleVisibility)
@@ -68,30 +70,35 @@ function Home() {
   
 
   return (
-    <div>
+    <motion.div 
+    initial={{ opacity: 0, y: -10 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -10 }}
+    transition={{ duration: 0.5, ease: 'easeInOut' }}
+    >
       <div className='mt-16'>
         <ImageSlider images={productImages} autoSlideInterval={5000} />
       </div>
       {/* Features Section */}
-      <div className='flex justify-around py-10 bg-gray-100'>
+      <div className='flex justify-around px-2 py-10 bg-gray-100 sm:px-4'>
         <div className='flex items-center space-x-3'>
           <FaShippingFast size={30} className='text-blue-500' />
           <div>
-            <h2 className='font-mono text-lg font-semibold'>Free Shipping</h2>
+            <h2 className='text-xs font-semibold sm:text-lg'>Free Shipping</h2>
             <p className='text-sm '>On all orders over ₹1000</p>
           </div>
         </div>
         <div className='flex items-center space-x-3'>
           <FaHeadset size={30} className='text-blue-500' />
           <div>
-            <h2 className='font-mono text-lg font-semibold'>24/7 Support</h2>
+            <h2 className='text-xs font-semibold sm:text-lg'>24/7 Support</h2>
             <p className='text-sm'>We're here to help</p>
           </div>
         </div>
         <div className='flex items-center space-x-3'>
           <FaUndo size={30} className='text-blue-500' />
           <div>
-            <h2 className='font-mono text-lg font-semibold'>Easy Returns</h2>
+            <h2 className='text-xs font-semibold sm:text-lg'>Easy Returns</h2>
             <p className='text-sm'>Hassle-free returns</p>
           </div>
         </div>
@@ -174,7 +181,7 @@ function Home() {
           <button onClick={scrollToTop} className={`${isVisible ? 'flex': 'hidden'} transition-all duration-200`}><MdKeyboardDoubleArrowUp /></button>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

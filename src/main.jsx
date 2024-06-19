@@ -16,6 +16,18 @@ import { AddressProvider } from './Context/AddressContext/AddressContext.jsx'
 import Search from './components/Search/Search.jsx'
 import Login from './components/Login/Login.jsx'
 import SignUp from './components/SignUp/SignUp.jsx'
+import { AuthProvider } from './Context/AuthContext/AuthContext.jsx'
+import { AnimatePresence } from 'framer-motion'
+
+
+const loginVerify = () => {
+  const userAuth = localStorage.getItem("userAuth")
+  if (userAuth) {
+    return true
+  } else {
+    return false
+  }
+}
 
 
 const router = createBrowserRouter(
@@ -28,7 +40,7 @@ const router = createBrowserRouter(
       <Route path='/products/:productId/:productName' element={<ProductViewPage />} />
       <Route path='/:productId/:productName' element={<ProductViewPage />} />
       <Route path='/cart/:productId' element={<Cart />} />
-      <Route path='/checkout' element={<Checkout />} />
+      <Route path='/checkout' element={loginVerify() ? <Checkout /> : <Login />} />
       <Route path='/order-confirmation' element={<OrderConfirmation />} />
       <Route path='/search/:productName' element={<Search />} />
       <Route path='/login' element={<Login />} />
@@ -39,10 +51,14 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <AnimatePresence mode='wait'>
     <CartProvider>
       <AddressProvider>
-        <RouterProvider router={router} />
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
       </AddressProvider>
     </CartProvider>
+    </AnimatePresence>
   </React.StrictMode>,
 )

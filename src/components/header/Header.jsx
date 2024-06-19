@@ -6,6 +6,8 @@ import { products } from '../../constants/Constants';
 import { CartContext } from '../../Context/CartContext/CartContext';
 import { motion, AnimatePresence } from "framer-motion";
 import { GiHamburgerMenu } from "react-icons/gi";
+import toast from 'react-hot-toast';
+import { AuthContext } from '../../Context/AuthContext/AuthContext';
 
 function Header() {
     const { cart } = useContext(CartContext);
@@ -17,6 +19,20 @@ function Header() {
     const [isProductVisible, setIsProductVisible] = useState(false);
     const [isCategoryVisible, setIsCategoryVisible] = useState(false);
     const [isMenuVisible, setIsMenuVisible] = useState(false);
+
+    const { isLoggedIn, logout} = useContext(AuthContext);
+
+    
+    const handleLogout = () => {
+
+        logout();
+        toast.success("Logout Successful")
+        setTimeout(() => {
+            navigate("/");
+            window.location.reload()
+        }, 500);
+        
+    }
 
     const searchRef = useRef(null);
 
@@ -43,7 +59,7 @@ function Header() {
 
     const handleSearch = () => {
         if (trimmedSearch === "") {
-            alert("Please enter a product name");
+            toast.error("Search field cannot be empty");
             return;
         }
 
@@ -113,9 +129,15 @@ function Header() {
                         <Link to={`/cart/${productId}`} className='text-[#F5F5F5] cursor-pointer text-2xl'><FaShoppingCart /></Link>
                         <label className='text-[#30cbff] ml-1'>{cart.length}</label>
                     </li>
-                    <button className='bg-[#36a9cf] rounded-md hover:bg-[#44c1ff] transition-all duration-200 px-6 py-2'>
-                        <Link to='/login' className='text-[#F5F5F5] font-semibold'>Login</Link>
-                    </button>
+                    {
+                        isLoggedIn ? 
+                        <button className='bg-[#e48c3a] rounded-md hover:bg-[#f98253] transition-all duration-200 px-6 py-2'>
+                            <p onClick={handleLogout} className='text-[#F5F5F5] font-semibold'>Logout</p>
+                        </button> : 
+                        <button className='bg-[#36a9cf] rounded-md hover:bg-[#44c1ff] transition-all duration-200 px-6 py-2'>
+                            <Link to='/login' className='text-[#F5F5F5] font-semibold'>Login</Link>
+                        </button>
+                    }
                   </ul>
                 ); 
                 
@@ -127,7 +149,7 @@ function Header() {
         <div>
             <div className={`${scroll ? "shadow-[rgba(50,50,93,0.45)_0px_12px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]" : ""} fixed top-0 left-0 right-0 z-10 flex justify-between items-center h-16  px-4 sm:px-12 transition-all duration-100 text-[#FFFFFF] bg-slate-700`}>
                 <div>
-                    <Link className='font-mono text-2xl font-bold px-2 py-1 rounded-md transition-all mr-4 duration-200 hover:bg-[#36a9cf]' to="/">TechTrove</Link>
+                    <Link className='font-mono text-lg sm:text-2xl font-bold px-2 py-1 rounded-md transition-all mr-4 duration-200 hover:bg-[#36a9cf]' to="/">TechTrove</Link>
                 </div>
                 <div 
                 onFocus={() => setIsVisible(true)} 
@@ -186,9 +208,16 @@ function Header() {
                         <Link to={`/cart/${productId}`} className='text-[#F5F5F5] cursor-pointer text-2xl'><FaShoppingCart /></Link>
                         <label className='text-[#30cbff] ml-1'>{cart.length}</label>
                     </li>
-                    <button className='bg-[#36a9cf] rounded-md hover:bg-[#44c1ff] transition-all duration-200 px-6 py-2'>
-                        <Link to='/login' className='text-[#F5F5F5] font-semibold'>Login</Link>
-                    </button>
+                    {
+                        isLoggedIn ? 
+                        <button className='bg-[#e48c3a] rounded-md hover:bg-[#f98253] transition-all duration-200 px-6 py-2'>
+                            <p onClick={handleLogout} className='text-[#F5F5F5] font-semibold'>Logout</p>
+                        </button> : 
+                        <button className='bg-[#36a9cf] rounded-md hover:bg-[#44c1ff] transition-all duration-200 px-6 py-2'>
+                            <Link to='/login' className='text-[#F5F5F5] font-semibold'>Login</Link>
+                        </button>
+                    }
+
                 </ul>
             </div>
         </div>

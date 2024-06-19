@@ -47,7 +47,7 @@ function OrderSummary() {
                 cart.map((pd,index)=>{
                     return(
                         <div key={index} className='flex items-center justify-between pb-8'>
-                            <div className='flex items-center gap-5'>
+                            <div className='flex flex-col gap-5 sm:items-center sm:flex-row'>
                                 <img className='w-[150px] rounded-xl' src={pd.image} alt="" />
                                 <div>
                                     <h1 className='font-mono text-xl'>{pd.name}</h1>

@@ -24,7 +24,12 @@ function ProductViewPage() {
   const navigate = useNavigate();
 
   const handleCartToBuy = (product) => {
-    handleCart(product);
+
+    const isInCart = cart.some(pd => pd.id === product.id);
+
+    if(!isInCart){
+      handleCart(product); 
+    }
     navigate("/cart");
   };
 

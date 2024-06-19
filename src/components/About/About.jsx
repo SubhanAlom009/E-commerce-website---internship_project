@@ -3,10 +3,17 @@ import Testimonials from '../Testimonials/Testimonials'
 import { aboutUs } from '../../constants/Constants'
 import hero from '../../assets/hero.jpg'
 import mission from '../../assets/mission.jpg'
+import { motion } from 'framer-motion'
 
 function About() {
+  
   return (
-    <div className='flex flex-col items-center px-4 py-8 mx-8 mt-24 space-y-6 bg-[#F5F5F5]'>
+    <motion.div 
+    initial={{ opacity: 0, y: 10 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: 10 }}
+    transition={{ duration: 0.5, ease: 'easeInOut' }}
+    className='flex flex-col items-center px-4 py-8 mx-8 mt-24 space-y-6 bg-[#F5F5F5]'>
       <div className='w-2/3 space-y-4 font-sans text-center'>
         <h1 className='text-4xl font-bold'>About Us</h1>
         <img src={hero} alt="here" />
@@ -24,7 +31,7 @@ function About() {
         <img src={mission} alt="here" />
         <p className='text-lg'>{aboutUs.mission}</p>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

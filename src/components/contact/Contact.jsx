@@ -1,5 +1,6 @@
 import React from 'react'
 import { useForm } from "react-hook-form"
+import { motion } from 'framer-motion'
 
 function Contact() {
 
@@ -11,7 +12,12 @@ function Contact() {
   const onSubmit = (data) => console.log(data)
 
   return (
-    <div className='flex items-center justify-center max-w-screen md:px-20'>
+    <motion.div 
+    initial={{ opacity: 0, y: -1 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -1 }}
+    transition={{ duration: 0.5, ease: 'easeInOut' }}
+    className='flex items-center justify-center max-w-screen md:px-20'>
       <div className='w-full px-4 mt-24 mb-12 sm:mb-16 sm:w-2/3 md:px-20'>
           <div className="px-6 sm:px-12 py-4 sm:py-8 rounded-lg bg-[#e1e1e1] space-y-8 w-full ">
               <div className='flex items-center justify-center'>
@@ -40,7 +46,7 @@ function Contact() {
               </div>
           </div>
       </div>
-     </div> 
+     </motion.div> 
   )
 }
 

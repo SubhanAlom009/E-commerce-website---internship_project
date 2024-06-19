@@ -21,7 +21,8 @@ export const CartProvider = ({ children }) => {
 
   const handleCart = (product) => {
     if (cart.find((pd) => pd.id === product.id)) {
-      return alert("Already added to cart");
+      alert("Already added to cart");
+      return
     }
     setCart((prev) => [...prev, { ...product, quantity: 1 }]);
   };
@@ -34,15 +35,19 @@ export const CartProvider = ({ children }) => {
   const updateQuantity = (productId, newQuantity) => {
     if (newQuantity < 1) return;
   
-    setCart(prevCart => {
-      const updatedCart = prevCart.map(item =>
-        item.id === productId ? { ...item, quantity: newQuantity } : item
-      );
-      // Only update the state if there is a change in the quantity
-      if (JSON.stringify(updatedCart) !== JSON.stringify(prevCart)) {
-        return updatedCart;
-      }
-      return prevCart;
+    setCart((prevCart) => {
+
+      return (
+        prevCart.map((item) =>
+          item.id === productId ? { ...item, quantity: newQuantity } : item
+        )
+      )
+        
+      // // Only update the state if there is a change in the quantity
+      // if (JSON.stringify(updatedCart) !== JSON.stringify(prevCart)) {
+      //   return updatedCart;
+      // }
+      // return prevCart;
     });
   };
   

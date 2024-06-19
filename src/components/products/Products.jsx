@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { products } from '../../constants/Constants';
 import { Link } from 'react-router-dom';
 import { MdKeyboardDoubleArrowUp } from "react-icons/md";
+import { motion } from 'framer-motion';
 
 function Products() {
 
@@ -65,7 +66,12 @@ function Products() {
 
 
   return (
-    <div className='flex flex-col justify-between gap-10 mx-8 mt-24 mb-12 sm:flex-row'>
+    <motion.div
+    initial={{ opacity: 0, y: 10 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: 10 }}
+    transition={{ duration: 0.5, ease: 'easeInOut' }}
+    className='flex flex-col justify-between gap-10 mx-8 mt-24 mb-12 sm:flex-row'>
       <div className='flex sm:flex-col gap-4 p-5 border-b sm:border-r border-slate-400 min-w-[200px]'>
         <div className='space-y-3'>
           <h1 className='text-lg font-semibold'>Categories</h1>
@@ -142,7 +148,7 @@ function Products() {
       <div className='fixed h-10 text-4xl transition-all duration-200 bg-blue-600 cursor-pointer hover:scale-105 right-2 bottom-4 '>
         <button onClick={scrollToTop} className={`${isVisible ? 'flex': 'hidden'} transition-all duration-200`}><MdKeyboardDoubleArrowUp /></button>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
