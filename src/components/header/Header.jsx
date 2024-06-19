@@ -34,6 +34,13 @@ function Header() {
         
     }
 
+    const scrollToTop = ()=>{
+        window.scrollTo({
+          top:0
+        })
+      }
+    
+
     const searchRef = useRef(null);
 
     const product = products.find((pd) => pd.id === parseInt(productId) || pd.name === productId);
@@ -114,16 +121,16 @@ function Header() {
     const navbarItems = ( 
                   <ul className='flex flex-col items-center justify-center gap-5'>
                     <li className='rounded-md transition-all duration-200 hover:bg-[#36a9cf] py-1 px-3'>
-                        <Link to='/'>Home</Link>
+                        <Link onClick={scrollToTop} to='/'>Home</Link>
                     </li>
                     <li className='rounded-md transition-all duration-200 hover:bg-[#36a9cf] py-1 px-3'>
-                        <Link to="/products">Products</Link>
+                        <Link onClick={scrollToTop} to="/products">Products</Link>
                     </li>
                     <li className='rounded-md transition-all duration-200 hover:bg-[#36a9cf] py-1 px-3'>
-                        <Link to='/about'>About</Link>
+                        <Link onClick={scrollToTop} to='/about'>About</Link>
                     </li>
                     <li className='rounded-md transition-all duration-200 hover:bg-[#36a9cf] py-1 px-3'>
-                        <Link to='/contact'>Contact</Link>
+                        <Link onClick={scrollToTop} to='/contact'>Contact</Link>
                     </li>
                     <li className='flex items-center cursor-pointer'>
                         <Link to={`/cart/${productId}`} className='text-[#F5F5F5] cursor-pointer text-2xl'><FaShoppingCart /></Link>
@@ -149,7 +156,7 @@ function Header() {
         <div>
             <div className={`${scroll ? "shadow-[rgba(50,50,93,0.45)_0px_12px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]" : ""} fixed top-0 left-0 right-0 z-10 flex justify-between items-center h-16  px-4 sm:px-12 transition-all duration-100 text-[#FFFFFF] bg-slate-700`}>
                 <div>
-                    <Link className='font-mono text-lg sm:text-2xl font-bold px-2 py-1 rounded-md transition-all mr-4 duration-200 hover:bg-[#36a9cf]' to="/">TechTrove</Link>
+                    <Link onClick={scrollToTop} className='font-mono text-lg sm:text-2xl font-bold px-2 py-1 rounded-md transition-all mr-4 duration-200 hover:bg-[#36a9cf]' to="/">TechTrove</Link>
                 </div>
                 <div 
                 onFocus={() => setIsVisible(true)} 
@@ -193,19 +200,19 @@ function Header() {
                 </AnimatePresence>
                 <ul className='items-center hidden gap-4 list-none sm:flex'>
                     <li className='rounded-md transition-all duration-200 px-2 py-1 hover:bg-[#36a9cf]'>
-                        <Link to='/'>Home</Link>
+                        <Link onClick={scrollToTop} to='/'>Home</Link>
                     </li>
                     <li className='rounded-md transition-all duration-200 px-2 py-1 hover:bg-[#36a9cf]'>
-                        <Link to="/products">Products</Link>
+                        <Link onClick={scrollToTop} to="/products">Products</Link>
                     </li>
                     <li className='rounded-md transition-all duration-200 px-2 py-1 hover:bg-[#36a9cf]'>
-                        <Link to='/about'>About</Link>
+                        <Link onClick={scrollToTop} to='/about'>About</Link>
                     </li>
                     <li className='rounded-md transition-all duration-200 px-2 py-1 hover:bg-[#36a9cf]'>
-                        <Link to='/contact'>Contact</Link>
+                        <Link onClick={scrollToTop} to='/contact'>Contact</Link>
                     </li>
                     <li className='flex items-center cursor-pointer'>
-                        <Link to={`/cart/${productId}`} className='text-[#F5F5F5] cursor-pointer text-2xl'><FaShoppingCart /></Link>
+                        <Link onClick={scrollToTop} to={`/cart/${productId}`} className='text-[#F5F5F5] cursor-pointer text-2xl'><FaShoppingCart /></Link>
                         <label className='text-[#30cbff] ml-1'>{cart.length}</label>
                     </li>
                     {
