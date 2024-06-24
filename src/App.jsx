@@ -3,11 +3,12 @@ import Header from './components/header/Header'
 import Footer from './components/footer/Footer'
 import { Toaster } from 'react-hot-toast'
 import { motion } from 'framer-motion'
-
+import LocomotiveScroll from 'locomotive-scroll';
 
 function App() {
 
-
+  const locomotiveScroll = new LocomotiveScroll();
+  
   return (
     <>
     <motion.div 
